@@ -16,7 +16,7 @@ class TrackableUserProxyAgent(UserProxyAgent):
             st.markdown(message)
         return super()._process_received_message(message, sender, silent)
 
-  selected_model = None
+selected_model = None
 selected_key = None
 
 with st.sidebar:
