@@ -51,7 +51,7 @@ with st.container():
 
         # create a UserProxyAgent instance named "user"
         user_proxy = TrackableUserProxyAgent(
-            name="user", human_input_mode="NEVER", llm_config=llm_config)
+            name="floor_manager", human_input_mode="NEVER", llm_config=llm_config)
 
         # Create an event loop
         loop = asyncio.new_event_loop()
@@ -60,7 +60,7 @@ with st.container():
 # Define an asynchronous function
         async def initiate_chat():
             await user_proxy.a_initiate_chat(
-                assistant,
+                manager,
                 message=user_input,
             )
 
