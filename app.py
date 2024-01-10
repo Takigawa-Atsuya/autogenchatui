@@ -1,6 +1,6 @@
 import streamlit as st 
 import asyncio 
-from autogen import  AssistantAgent、UserProxyAgent
+from autogen import  AssistantAgent,UserProxyAgent
 
 st.write("# AutoGen Chat Agents")
 
