@@ -68,7 +68,7 @@ with st.container():
         human_input_mode="ALWAYS"
         )
         
-        bakery = AssistantAgent(
+        bakery_shop = AssistantAgent(
         name="bakery_shop",
         system_message="あなたはパン屋の店主です。地元滋賀県の人々に根強い人気があり、地元も食材にこだわったパン作りを行っています。",
         llm_config=llm_config,
