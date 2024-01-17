@@ -47,15 +47,44 @@ with st.container():
         }
 
         # create an AssistantAgent instance named "assistant"
-        assistant = TrackableAssistantAgent(
-            name="assistant", llm_config=llm_config)
+        #assistant = TrackableAssistantAgent(
+            #name="assistant", llm_config=llm_config)
 
         # create a UserProxyAgent instance named "user"
-        user_proxy = TrackableUserProxyAgent(
-            name="floor_manager", human_input_mode="NEVER", llm_config=llm_config)
+        #floor_manager = TrackableUserProxyAgent(
+            #name="floor_manager", human_input_mode="NEVER", llm_config=llm_config)
 
-        groupchat = autogen.GroupChat(agents = [assistant, floor_manager], messages=[], max_round=12)
-        floor_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config=llm_config)
+        floor_manager = TrackableUserProxyAgent(
+        name="floor_manager",
+        system_message="人間との対話を通じて、ChefやDoctor、Kitchen_Managerと相談しながら調理や食材に関する課題を解決してください。",
+        code_execution_config={"last_n_messages": 2, "work_dir": "groupchat"},
+        human_input_mode="ALWAYS"
+        )
+        
+        chef = TrackableAssistantAgent(
+        name="chef",
+        system_message="世界中の料理を知り尽くした料理人です。健康面はdoctorが検討するので、考慮する必要はありません。味についてのみ検討したレシピを考案し、最高の料理を提供します。考案したメニューをdoctorと相談して、健康面を考慮しながら修正してください。メニューが決定したらkitchen_managerに食材リストの提出を依頼してください。",
+        llm_config=llm_config,
+        )
+        
+        doctor = TrackableAssistantAgent(
+        name="doctor",
+        system_message="chefが提案したメニューを医学的な立場で検証し、Chefに修正を依頼してください。",
+        llm_config=llm_config,
+        )
+        
+        kitchen_manager = TrackableAssistantAgent(
+        name="kitchen_manager",
+        system_message="料理にかかる費用や必要な食材や調味料を管理します。chefが考案しメニューから必要な食材を検討し、その調達を指示してください。",
+        llm_config=llm_config,
+        )
+        
+        groupchat = autogen.GroupChat(agents=[floor_manager, chef, doctor, kitchen_manager], messages=[], max_round=12)
+        manager = autogen.GroupChatManager(groupchat=groupchat, llm_config=llm_config)
+        
+
+        #groupchat = autogen.GroupChat(agents = [assistant, floor_manager], messages=[], max_round=12)
+        #floor_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config=llm_config)
         
         # Create an event loop
         loop = asyncio.new_event_loop()
