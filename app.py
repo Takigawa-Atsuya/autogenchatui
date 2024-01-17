@@ -51,10 +51,10 @@ with st.container():
             #name="assistant", llm_config=llm_config)
 
         # create a UserProxyAgent instance named "user"
-        #floor_manager = TrackableUserProxyAgent(
-            #name="floor_manager", human_input_mode="NEVER", llm_config=llm_config)
-
         user_proxy = TrackableUserProxyAgent(
+            name="floor_manager", human_input_mode="NEVER", llm_config=llm_config)
+
+        floor_manager = TrackableUserProxyAgent(
         name="floor_manager",
         system_message="人間との対話を通じて、ChefやDoctor、Kitchen_Managerと相談しながら調理や食材に関する課題を解決してください。",
         code_execution_config={"last_n_messages": 2, "work_dir": "groupchat"},
