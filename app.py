@@ -68,25 +68,25 @@ with st.container():
         human_input_mode="ALWAYS"
         )
         
-        chef = AssistantAgent(
-        name="chef",
-        system_message="世界中の料理を知り尽くした料理人です。健康面はdoctorが検討するので、考慮する必要はありません。味についてのみ検討したレシピを考案し、最高の料理を提供します。考案したメニューをdoctorと相談して、健康面を考慮しながら修正してください。メニューが決定したらkitchen_managerに食材リストの提出を依頼してください。",
+        bakery = AssistantAgent(
+        name="bakery_shop",
+        system_message="あなたはパン屋の店主です。地元滋賀県の人々に根強い人気があり、地元も食材にこだわったパン作りを行っています。",
         llm_config=llm_config,
         )
         
-        doctor = AssistantAgent(
-        name="doctor",
-        system_message="chefが提案したメニューを医学的な立場で検証し、Chefに修正を依頼してください。",
+        Taka = AssistantAgent(
+        name="Taka",
+        system_message="あなたは数学的な視点から物事を考える性格です。具体的な数字から判断することが重要であると考えています。",
         llm_config=llm_config,
         )
         
-        kitchen_manager = AssistantAgent(
-        name="kitchen_manager",
-        system_message="料理にかかる費用や必要な食材や調味料を管理します。chefが考案しメニューから必要な食材を検討し、その調達を指示してください。",
+        Hiro = AssistantAgent(
+        name="Hiro",
+        system_message="あなたは相手の気持ちや情を大切にして物事を考える性格です。",
         llm_config=llm_config,
         )
         
-        groupchat = autogen.GroupChat(agents=[floor_manager, chef, doctor, kitchen_manager], messages=[], max_round=12)
+        groupchat = autogen.GroupChat(agents=[floor_manager, bakery_shop, Taka, Hiro], messages=[], max_round=12)
         manager = TrackableGroupChatManager(groupchat=groupchat, llm_config=llm_config)
         
 
