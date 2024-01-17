@@ -53,6 +53,9 @@ with st.container():
         user_proxy = TrackableUserProxyAgent(
             name="floor_manager", human_input_mode="NEVER", llm_config=llm_config)
 
+        groupchat = autogen.GroupChat(agents = [assistant, floor_manager], messages=[], max_round=12)
+        floor_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config=llm_config)
+        
         # Create an event loop
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
