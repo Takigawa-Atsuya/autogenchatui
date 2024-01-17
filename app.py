@@ -16,6 +16,13 @@ class TrackableUserProxyAgent(UserProxyAgent):
         with st.chat_message(sender.name):
             st.markdown(message)
         return super()._process_received_message(message, sender, silent)
+        
+class TrackableGroupChatManager(GroupChatManager):
+     def _process_received_message(self, message, sender, silent):
+        with st.chat_message(sender.name):
+            st.markdown(message)
+        return super()._process_received_message(message, sender, silent)
+
 
 selected_model = None
 selected_key = None
@@ -80,7 +87,7 @@ with st.container():
         )
         
         groupchat = autogen.GroupChat(agents=[floor_manager, chef, doctor, kitchen_manager], messages=[], max_round=12)
-        manager = autogen.GroupChatManager(groupchat=groupchat, llm_config=llm_config)
+        manager = TrackableGroupChatManager(groupchat=groupchat, llm_config=llm_config)
         
 
         #groupchat = autogen.GroupChat(agents = [assistant, floor_manager], messages=[], max_round=12)
