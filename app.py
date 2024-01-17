@@ -87,8 +87,8 @@ with st.container():
         #floor_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config=llm_config)
         
         # Create an event loop
-        #loop = asyncio.new_event_loop()
-        #asyncio.set_event_loop(loop)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
 
 # Define an asynchronous function
         async def initiate_chat():
@@ -98,6 +98,6 @@ with st.container():
             )
 
         # Run the asynchronous function within the event loop
-        #loop.run_until_complete(initiate_chat())
+        loop.run_until_complete(initiate_chat())
 
       
